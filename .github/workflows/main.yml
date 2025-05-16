@@ -12,11 +12,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Specify the Node.js version you need
+          node-version: '20'  # Updated to a newer Node.js version compatible with Supabase CLI
       - name: Install dependencies
         run: npm install  # Adjust this if you're using a different package manager
+      - name: Login to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx supabase login "$SUPABASE_SERVICE_ROLE_KEY"
+      - name: Link Supabase project
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}  # Add this to your GitHub Secrets
+        run: npx supabase link --project-ref "$SUPABASE_PROJECT_ID" 
       - name: Deploy to Supabase
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}  # Set this in your GitHub Secrets
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}  # Set this in your GitHub Secrets
-        run: npx supabase db push  # Use npx to run the Supabase CLI
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx supabase db push
