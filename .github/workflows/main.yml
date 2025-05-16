@@ -15,10 +15,6 @@ jobs:
           node-version: '16'  # Specify the Node.js version you need
       - name: Install dependencies
         run: npm install  # Adjust this if you're using a different package manager
-      - name: Link Supabase project
-        run: npx supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}  # Ensure this token has proper permissions        
       - name: Deploy to Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}  # Set this in your GitHub Secrets
