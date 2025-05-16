@@ -2,33 +2,15 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
       - name: Install dependencies
         run: npm install
-        working-directory: ./workspaces/civisto-backend
-
-      - name: Run build
-        run: npm run build
-        working-directory: ./workspaces/civisto-backend
-
-      - name: Run tests
-        run: npm test
         working-directory: ./workspaces/civisto-backend

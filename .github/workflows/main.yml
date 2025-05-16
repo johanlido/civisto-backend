@@ -15,10 +15,8 @@ jobs:
           node-version: '16'  # Specify the Node.js version you need
       - name: Install dependencies
         run: npm install  # Adjust this if you're using a different package manager
-      - name: Install Supabase CLI
-        run: npm install -g supabase
       - name: Deploy to Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}  # Set this in your GitHub Secrets
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}  # Set this in your GitHub Secrets
-        run: supabase db push  # Adjust this command based on your deployment needs
+        run: npx supabase db push  # Use npx to run the Supabase CLI
