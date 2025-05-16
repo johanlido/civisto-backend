@@ -17,9 +17,8 @@ jobs:
         run: npm install  # Adjust this if you're using a different package manager
       - name: Login to Supabase
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: npx supabase login "$SUPABASE_SERVICE_ROLE_KEY"
+        run: npx supabase login --token "$SUPABASE_SERVICE_ROLE_KEY"
       - name: Link Supabase project
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
